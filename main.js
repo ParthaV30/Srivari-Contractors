@@ -85,14 +85,10 @@ function showVideo(i) {
   else videoIndex = i;
   videoSlides.style.transform = `translateX(-${videoIndex * 100}%)`;
   
-  // Pause all videos and mute them, then play and unmute the current one
+  // Pause all videos except the current one
   videos.forEach((video, idx) => {
     if (idx !== videoIndex) {
       video.pause();
-      video.muted = true;
-    } else {
-      video.muted = false;
-      video.play();
     }
   });
 }
