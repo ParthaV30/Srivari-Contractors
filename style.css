@@ -103,8 +103,9 @@ img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
   justify-content: space-between;
   height: 64px;
 }
-.nav-list { list-style: none; display: flex; gap: 16px; }
-.nav-list a { padding: 8px 10px; color: var(--text-light); font-weight: 500; }
+.nav-list { list-style: none; display: flex; gap: 16px; align-items: center; }
+.nav-list li { display: flex; align-items: center; }
+.nav-list a { padding: 8px 10px; color: var(--text-light); font-weight: 500; display: flex; align-items: center; }
 
 /* Hamburger icon */
 .nav-toggle {
