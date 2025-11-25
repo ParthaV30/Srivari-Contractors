@@ -70,6 +70,44 @@ function resetAutoPlay() {
 showSlide(0);
 startAutoPlay();
 
+// Video slider
+const videoSlides = document.querySelector('.video-slider .video-slides');
+const videos = document.querySelectorAll('.video-slider video');
+const videoPrevBtn = document.querySelector('.video-slider .prev');
+const videoNextBtn = document.querySelector('.video-slider .next');
+
+let videoIndex = 0;
+
+function showVideo(i) {
+  if (!videoSlides || videos.length === 0) return;
+  if (i < 0) videoIndex = videos.length - 1;
+  else if (i >= videos.length) videoIndex = 0;
+  else videoIndex = i;
+  videoSlides.style.transform = `translateX(-${videoIndex * 100}%)`;
+  
+  // Pause all videos and mute them, then play and unmute the current one
+  videos.forEach((video, idx) => {
+    if (idx !== videoIndex) {
+      video.pause();
+      video.muted = true;
+    } else {
+      video.muted = false;
+      video.play();
+    }
+  });
+}
+
+// Video navigation
+videoPrevBtn?.addEventListener('click', () => {
+  showVideo(videoIndex - 1);
+});
+videoNextBtn?.addEventListener('click', () => {
+  showVideo(videoIndex + 1);
+});
+
+// Initialize video slider
+showVideo(0);
+
 // Quote Modal logic
 const quoteModal = document.getElementById('quoteModal');
 const quoteForm = document.getElementById('quoteForm');
@@ -108,14 +146,26 @@ quoteForm?.addEventListener('submit', e => {
 
   const data = Object.fromEntries(new FormData(quoteForm).entries());
 
-  // Mailto fallback (replace with backend if needed)
+  // WhatsApp message
+  const whatsappMessage = encodeURIComponent(
+    `*Quote Request - Sri Vari Contractors*\n\nName: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nLocation: ${data.location || '-'}\n\nProject details:\n${data.message || '-'}`
+  );
+  
+  // Email message
   const subject = encodeURIComponent('Quote Request — Sri Vari Contractors');
   const body = encodeURIComponent(
     `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nLocation: ${data.location || '-'}\n\nProject details:\n${data.message || '-'}`
   );
-  window.location.href = `mailto:smbsshanmugam@gmail.com?subject=${subject}&body=${body}`;
+  
+  // Open WhatsApp first
+  window.open(`https://wa.me/919876543210?text=${whatsappMessage}`, '_blank');
+  
+  // Then open email
+  setTimeout(() => {
+    window.location.href = `mailto:viswatamil444@gmail.com?subject=${subject}&body=${body}`;
+  }, 500);
 
-  if (quoteStatus) quoteStatus.textContent = 'Opening your email client...';
+  if (quoteStatus) quoteStatus.textContent = 'Opening WhatsApp and Email...';
 });
 
 // Contact form simple feedback (optional)
@@ -129,5 +179,16 @@ contactForm?.addEventListener('submit', e => {
   const body = encodeURIComponent(
     `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nLocation: ${data.location || '-'}\n\nMessage:\n${data.message || '-'}`
   );
-  window.location.href = `mailto:smbsshanmugam@gmail.com?subject=${subject}&body=${body}`;
+  // WhatsApp message
+  const whatsappMsg = encodeURIComponent(
+    `*Contact - Sri Vari Contractors*\n\nName: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nLocation: ${data.location || '-'}\n\nMessage:\n${data.message || '-'}`
+  );
+  
+  // Open WhatsApp
+  window.open(`https://wa.me/919876543210?text=${whatsappMsg}`, '_blank');
+  
+  // Then open email
+  setTimeout(() => {
+    window.location.href = `mailto:viswatamil444@gmail.com?subject=${subject}&body=${body}`;
+  }, 500);
 });
