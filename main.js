@@ -154,7 +154,7 @@ quoteForm?.addEventListener('submit', e => {
   );
   
   // Open WhatsApp first
-  window.open(`https://wa.me/918088880042?text=${whatsappMessage}`, '_blank');
+  window.open(`https://wa.me/919500280042?text=${whatsappMessage}`, '_blank');
   
   // Then open email
   setTimeout(() => {
@@ -181,7 +181,7 @@ contactForm?.addEventListener('submit', e => {
   );
   
   // Open WhatsApp
-  window.open(`https://wa.me/918088880042?text=${whatsappMsg}`, '_blank');
+  window.open(`https://wa.me/919500280042?text=${whatsappMsg}`, '_blank');
   
   // Then open email
   setTimeout(() => {
